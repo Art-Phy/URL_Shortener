@@ -1,5 +1,9 @@
 
 from fastapi import FastAPI
+from .database import Base, engine
+
+# Crear tablas automáticamente (sólo en desarrollo)
+Base.metadata.create_all(bind=engine)
 
 
 # -------------------------------------------------
