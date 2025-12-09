@@ -1,6 +1,10 @@
 
-from fastapi import FastAPI
-from .database import Base, engine
+from fastapi import FastAPI, Depends
+from sqlalchemy.orm import Session
+
+from .database import Base, engine, get_db
+from . import models, schemas
+from .utils import generate_short_code
 
 # Crear tablas automáticamente (sólo en desarrollo)
 Base.metadata.create_all(bind=engine)
@@ -8,7 +12,6 @@ Base.metadata.create_all(bind=engine)
 
 # -------------------------------------------------
 #    Punto de entradad de nuestra app FastApi
-#    Endpoint simple para verificar que funciona
 # -------------------------------------------------
 
 app = FastAPI(
@@ -17,6 +20,10 @@ app = FastAPI(
     version="0.1.0"
 )
 
+
+# -------------------
+#    Endpoint raíz
+# -------------------
 @app.get("/")
 def root():
     """
@@ -24,3 +31,27 @@ def root():
     Cuando accedamos a la ruta raíz ("/") nos devolverá un mensahe simple.
     """
     return {"message": "UR Shortener API listo para trabajar 🚀"}
+
+
+# -------------------------------
+#    Endpoint: Crear URL corta
+# -------------------------------
+@app.post("/shorten", response_model=schemas.URLInfo)
+def create_short_url(url: schemas.URLCreate, db: Session = Depends(get_db)):
+    """
+    Crea una versión acortada de la URL enviada por el usuario.
+    Genera un código aleatorio, lo guarda en la base de datos
+    y devuelve la información completa del registro.
+    """
+    short = generate_short_code()
+
+    db_url = models.URL(
+        original_url=str(url.original_url), # convierte a string
+        short_url=short,
+        clicks=0
+    )
+    db.add(db_url)
+    db.commit()
+    db.refresh(db_url)
+
+    return db_url
