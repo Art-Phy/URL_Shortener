@@ -76,5 +76,23 @@ def redirect_to_original(short_code: str, db: Session = Depends(get_db)):
     # Aumentamos clicks
     db_url.clicks += 1
     db.commit()
+    db.refresh(db_url) # Fuerza a SQLAlchemy a cargar el valor actualizado
 
     return RedirectResponse(db_url.original_url)
+
+
+# ----------------------------
+#    Endpoint: Estadísticas
+# ----------------------------
+@app.get("/stats/{short_code}", response_model=schemas.URLInfo)
+def get_url_stats(short_code: str, db: Session = Depends(get_db)):
+    """
+    Devuelve las estadísticas de una URL acortada.
+    Incluye la URL original, el código corto y el número de clicks.
+    """
+    db_url = db.query(models.URL).filter(models.URL.short_url == short_code).first()
+
+    if not db_url:
+        raise HTTPException(status_code=404, detail="URL no encontrada 🥲")
+    
+    return db_url
