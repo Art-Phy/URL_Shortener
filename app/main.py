@@ -1,5 +1,7 @@
 
 from fastapi import FastAPI, Depends
+from fastapi.responses import RedirectResponse
+from fastapi import HTTPException
 from sqlalchemy.orm import Session
 
 from .database import Base, engine, get_db
@@ -55,3 +57,24 @@ def create_short_url(url: schemas.URLCreate, db: Session = Depends(get_db)):
     db.refresh(db_url)
 
     return db_url
+
+
+# -------------------------------------------
+#    Endpoint: Redirigir a la URL original
+# -------------------------------------------
+@app.get("/{short_code}")
+def redirect_to_original(short_code: str, db: Session = Depends(get_db)):
+    """
+    Redirige a la URL original asociada al código corto.
+    Aumenta el contador de clics antes de enviar la redirección.
+    """
+    db_url = db.query(models.URL).filter(models.URL.short_url == short_code).first()
+
+    if not db_url:
+        raise HTTPException(status_code=404, detail="URL no encontrada 🥲")
+    
+    # Aumentamos clicks
+    db_url.clicks += 1
+    db.commit()
+
+    return RedirectResponse(db_url.original_url)
