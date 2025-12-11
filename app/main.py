@@ -3,6 +3,7 @@ from fastapi import FastAPI, Depends
 from fastapi.responses import RedirectResponse
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
+from sqlalchemy import func
 from datetime import datetime
 from typing import List
 
@@ -17,12 +18,12 @@ Base.metadata.create_all(bind=engine)
 # -------------------------------------------------
 #    Punto de entradad de nuestra app FastApi
 # -------------------------------------------------
-
 app = FastAPI(
     title="URL Shortener API",
     description="Servicio para cortar URLs y obtener estadísticas.",
     version="0.1.0"
 )
+
 
 
 # -------------------
@@ -35,6 +36,7 @@ def root():
     Cuando accedamos a la ruta raíz ("/") nos devolverá un mensahe simple.
     """
     return {"message": "UR Shortener API listo para trabajar 🚀"}
+
 
 
 # -------------------------------
@@ -59,6 +61,8 @@ def create_short_url(url: schemas.URLCreate, db: Session = Depends(get_db)):
     db.refresh(db_url)
 
     return db_url
+
+
 
 # ----------------------------
 #    Endpoint: Estadísticas
@@ -98,6 +102,38 @@ def get_top_urls(limit: int = 10, db: Session = Depends(get_db)):
     )
 
     return urls
+
+
+
+# ------------------------------------
+#    Endpoint: Estadísticas-Sumario
+# ------------------------------------
+@app.get("/stats/summary", response_model=schemas.SummaryInfo)
+def get_summary(db: Session = Depends(get_db)):
+    """
+    Devuelve estadísticas globales del servicio:
+    total de URLs, total de clics, media y URL más popular.
+    """
+
+    total_urls = db.query(models.URL).count()
+    total_clicks = db.query(models.URL).with_entities(
+        func.sum(models.URL.clicks)
+    ).scalar() or 0
+
+    average_clicks = total_clicks / total_urls if total_urls > 0 else 0
+
+    most_clicked = (
+        db.query(models.URL)
+        .order_by(models.URL.clicks.desc())
+        .first()
+    )
+
+    return {
+        "total_urls": total_urls,
+        "total_clicks": total_clicks,
+        "average_clicks": average_clicks,
+        "most_clicked": most_clicked
+    }
 
 
 
