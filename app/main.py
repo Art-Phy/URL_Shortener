@@ -3,6 +3,7 @@ from fastapi import FastAPI, Depends
 from fastapi.responses import RedirectResponse
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
+from datetime import datetime
 
 from .database import Base, engine, get_db
 from . import models, schemas
@@ -75,6 +76,8 @@ def redirect_to_original(short_code: str, db: Session = Depends(get_db)):
     
     # Aumentamos clicks
     db_url.clicks += 1
+    db_url.last_accessed = datetime.utcnow()
+    
     db.commit()
     db.refresh(db_url) # Fuerza a SQLAlchemy a cargar el valor actualizado
 
