@@ -21,3 +21,11 @@ class URLInfo(BaseModel):
 
     class Config:
         from_attributes = True # permite devolver objetos SQLAlchemy convertidos a JSON
+
+
+
+class SummaryInfo(BaseModel):
+    total_urls: int
+    total_clicks: int
+    average_clicks: float
+    most_clicked: URLInfo | None = None
