@@ -137,6 +137,48 @@ def get_summary(db: Session = Depends(get_db)):
 
 
 
+# ------------------------
+#    Endpoint: Paginado
+# ------------------------
+@app.get("/stats", response_model=schemas.PaginatedURLs)
+def get_paginated_stats(
+    limit: int = 10,
+    offset: int = 0,
+    db: Session = Depends(get_db)
+):
+    """
+    Devuelve una lista paginad de URLs con sus estadísticas.
+    Parámetros:
+        - limit: cuántos resultados quieres (máximo por página)
+        - offset: desde qué registro empezar
+    """
+
+    if limit <= 0:
+        raise HTTPException(status_code=400, detail="El parámetro 'limit' debe ser mayor que 0")
+    if offset < 0:
+        raise HTTPException(status_code=400, detail="El parámetro 'offset' no puede ser negativo")
+    
+    # total de URLs disponibles
+    total = db.query(models.URL).count()
+
+    # obtener registros aplicando paginación
+    urls = (
+        db.query(models.URL)
+        .order_by(models.URL.id.asc())
+        .offset(offset)
+        .limit(limit)
+        .all()
+    )
+
+    return {
+        "total": total,
+        "limit": limit,
+        "offset": offset,
+        "results": urls
+    }
+
+
+
 # -------------------------------------------
 #    Endpoint: Redirigir a la URL original
 # -------------------------------------------

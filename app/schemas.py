@@ -29,3 +29,11 @@ class SummaryInfo(BaseModel):
     total_clicks: int
     average_clicks: float
     most_clicked: URLInfo | None = None
+
+
+
+class PaginatedURLs(BaseModel):
+    total: int
+    limit: int
+    offset: int
+    results: list[URLInfo]
