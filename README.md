@@ -1,5 +1,16 @@
 
 ## 📘 README
+### URL Shortener 🔗
+
+<p align="left">
+  <img src="https://img.shields.io/badge/python-3.11+-blue.svg" />
+  <img src="https://img.shields.io/badge/FastAPI-REST-green?logo=fastapi" />
+  <img src="https://img.shields.io/badge/SQLAlchemy-ORM-red" />
+  <img src="https://img.shields.io/badge/Status-Portfolio%20Project-success" />
+  <img src="https://img.shields.io/badge/License-MIT-lightgrey" />
+</p>
+
+Servicio backend desarrollado con **FastAPI** que permite acortar URLs, redirigir a su destino original y recopilar estadísticas de uso y métricas de analítica.
 
 ### URL Shortener 🔗
 
