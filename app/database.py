@@ -1,30 +1,32 @@
+import os
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
 
 
 # ----------------------------------------
-#          Configuración de la BD
-#       En desarrollo usaremos SQLite.
-#    Más adelante migración a PostgreSQL
+#     Configuración PostgreSQL
 # -----------------------------------------
 
-DATABASE_URL = "sqlite:///./url_shortener.db"
+DATABASE_URL = os.getenv("DATABASE_URL")
 
-# connect_args sólo se necesita para SQLite
-engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
+if not DATABASE_URL:
+    raise RuntimeError("DATABASE_URL enviroment variable is not set")
 
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+engine = create_engine(DATABASE_URL)
 
-# Base para declarar nuestros modelos
+SessionLocal = sessionmaker(
+    autocommit=False,
+    autoflush=False,
+    bind=engine
+)
+
 Base = declarative_base()
 
 
-# Dependencia para obtener sesión de BD en endpoints
 def get_db():
     """
     Abre una sesión de base de datos y la cierra al terminar.
-    Se usará inyectñandola en los endpoints con Depends.
     """
     db = SessionLocal()
     try:
