@@ -1,10 +1,33 @@
-## 📄 CHANGELOG
+## CHANGELOG
 
 Todas las modificaciones relevantes del proyecto se documentan en este archivo siguiendo versionado semántico.
 
 ---
 
-### [v0.2.0] — Analytics avanzadas
+###  [v0.3.0] Dockerización y despliegue
+
+#### Añadido
+
+- Dockerización completa de la aplicación mediante `Dockerfile`.
+- Orquestación de servicios mediante `docker-compose.yml`.
+- Integración de PostgreSQL como base de datos para entorno containerizado.
+- Configuración mediante variables de entorno externas (`.docker.env`).
+- Archivo `.dockerignore` para optimizar la construcción de imágenes Docker.
+- Persistencia de datos mediante volúmenes Docker.
+- Preparación para despliegue en Raspberry Pi y servidores Linux.
+- Despliegue validado en Raspberry Pi mediante Docker Compose.
+
+#### Mejoras
+
+- Entorno de desarrollo y despliegue completamente reproducible.
+- Separación de configuración sensible fuera del repositorio.
+- Estandarización del proceso de arranque de la aplicación.
+- Mejora de la portabilidad entre diferentes sistemas operativos.
+- Preparación para futuros despliegues en VPS o infraestructura propia.
+
+---
+
+### [v0.2.0] Analytics avanzadas
 
 #### Añadido
 - Registro de fecha de creación (`created_at`) y último acceso (`last_accessed`) por URL.
@@ -24,7 +47,7 @@ Todas las modificaciones relevantes del proyecto se documentan en este archivo s
 
 ---
 
-### [v0.1.0] — MVP funcional
+### [v0.1.0] MVP funcional
 
 #### Añadido
 - Endpoint para crear URLs cortas (`POST /shorten`).
@@ -35,7 +58,7 @@ Todas las modificaciones relevantes del proyecto se documentan en este archivo s
 
 ---
 
-### [v0.0.1] — Estructura inicial
+### [v0.0.1] Estructura inicial
 
 #### Añadido
 - Estructura base del proyecto.

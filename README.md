@@ -1,31 +1,34 @@
 
-## 📘 README
-### URL Shortener 🔗
+## README
+### URL Shortener
 
 <p align="left">
   <img src="https://img.shields.io/badge/python-3.11+-blue.svg" />
   <img src="https://img.shields.io/badge/FastAPI-REST-green?logo=fastapi" />
   <img src="https://img.shields.io/badge/SQLAlchemy-ORM-red" />
+  <img src="https://img.shields.io/badge/PostgreSQL-Database-blue?logo=postgresql" />
+  <img src="https://img.shields.io/badge/Docker-Containerized-2496ED?logo=docker" />
+  <img src="https://img.shields.io/badge/Docker%20Compose-Orchestration-2496ED?logo=docker" />
   <img src="https://img.shields.io/badge/Status-Portfolio%20Project-success" />
+  <img src="https://img.shields.io/badge/Raspberry%20Pi-Deployed-C51A4A?logo=raspberrypi" />
   <img src="https://img.shields.io/badge/License-MIT-lightgrey" />
-</p>
+</>
+
+### URL Shortener
 
 Servicio backend desarrollado con **FastAPI** que permite acortar URLs, redirigir a su destino original y recopilar estadísticas de uso y métricas de analítica.
 
-### URL Shortener 🔗
-
-Servicio backend desarrollado con **FastAPI** que permite acortar URLs, redirigir a su destino original y recopilar estadísticas de uso y métricas de analítica.
-
-Este proyecto ha sido desarrollado como parte de un **portfolio backend**, con el objetivo de demostrar diseño de APIs REST, trabajo con bases de datos relacionales, analítica básica y buenas prácticas de desarrollo y control de versiones.
+Este proyecto ha sido desarrollado como parte de un **portfolio backend**, con el objetivo de demostrar diseño de APIs REST, trabajo con bases de datos relacionales, analítica básica, Docker, PostgreSQL y buenas prácticas de desarrollo y control de versiones.
 
 ---
 
-### ✨ Funcionalidades
+### Funcionalidades
 
 #### Core
 - Creación de URLs cortas a partir de URLs originales.
 - Redirección automática al destino original.
 - Contabilización de clics por enlace.
+- Persistencia de datos mediante SQLAlchemy.
 
 #### Analytics
 - Estadísticas detalladas por URL.
@@ -34,9 +37,16 @@ Este proyecto ha sido desarrollado como parte de un **portfolio backend**, con e
 - Paginación de resultados para manejar grandes volúmenes de datos.
 - Registro de fechas de creación y último acceso.
 
+#### DevOps & Deployment
+- Dockerización completa de la aplicación.
+- Orquestación mediante Docker Compose.
+- Integración con PostgreSQL.
+- Gestión de configuración mediante variables de entorno.
+- Preparado para despliegue en Raspberry Pi, VPS o servidores Linux.
+
 ---
 
-### 📊 Endpoints principales
+### Endpoints principales
 
 - `POST /shorten` → crear URL corta
 - `GET /{short_code}` → redirigir a la URL original
@@ -53,61 +63,88 @@ La documentación interactiva está disponible en:
 
 ---
 
-### 🛠️ Stack tecnológico
+### Stack tecnológico
+
+#### Backend
 
 - **Lenguaje:** Python
 - **Framework:** FastAPI
 - **ORM:** SQLAlchemy
 - **Validación de datos:** Pydantic v2
-- **Base de datos:** SQLite (entorno de desarrollo)
 - **Servidor ASGI:** Uvicorn
-- **Control de versiones:** Git + GitFlow
+
+#### Base de datos
+
+- PostgreSQL
+
+#### Infraestructura
+
+- Docker
+- Docker Compose
+
+#### Control de versiones
+
+- Git
+- GitFlow
 
 ---
 
-### ⚙️ Ejecución en local
+### Ejecución mediante Docker Compose
 
 1. Clonar el repositorio:
-   ```bash
-   git clone <URL_DEL_REPO>
-   cd URL_Shortener
-   ```
 
-2. Crear y activar entorno virtual.
+```bash
+git clone <URL_DEL_REPO>
+cd URL_Shortener
+```
 
-3. Instalar dependencias:
-   ```bash
-   pip install -r requirements.txt
-   ```
+2. Configurar variables de entorno:
 
-4. Ejecutar el servidor:
-   ```bash
-   uvicorn app.main:app --reload
-   ```
+```bash
+cp .docker.env.example .docker.env
+```
 
-5. Acceder a:
-   - API: `http://127.0.0.1:8000`
-   - Docs: `http://127.0.0.1:8000/docs`
+3. Construir y arrancar servicios:
 
----
+```bash
+docker compose up --build
+```
 
-### 🧠 Decisiones técnicas destacables
+4. Acceder a:
 
-- Uso de paginación (`limit` / `offset`) para escalabilidad.
-- Endpoints orientados a analítica y reporting.
-- Versionado semántico con releases claras.
-- Flujo GitFlow aplicado estrictamente (`main`, `develop`, `feature/*`).
-- Proyecto acotado y coherente, pensado para ser explicable en entrevistas.
+- API: `http://localhost:8000`
+- Docs: `http://localhost:8000/docs`
+
 
 ---
 
-### 🔭 Posibles extensiones futuras (no implementadas)
+### Decisiones técnicas destacables
 
-- Sistema de usuarios y autenticación.
+- Diseño de APIs REST con FastAPI.
+- Validación de datos mediante Pydantic.
+- SQLAlchemy ORM.
+- PostgreSQL.
+- Analytics y reporting.
+- Paginación de resultados.
+- Docker.
+- Docker Compose.
+- Gestión de variables de entorno.
+- Despliegue reproducible.
+- GitFlow.
+- Versionado semántico.
+
+---
+
+### Posibles extensiones futuras (no implementadas)
+
+- Sistema de usuarios y autenticación JWT.
 - Exportación de estadísticas (CSV).
-- Migración a PostgreSQL para producción.
-- Frontend ligero para consumo visual del servicio.
+- Dashboard web para visualización de métricas.
+- Migraciones mediante Alembic.
+- Integración de Redis para caché.
+- Monitorización y observabilidad.
+
 
 ---
 
-Este proyecto representa un backend completo, funcional y bien estructurado, diseñado para demostrar competencias reales en desarrollo backend y analítica básica.
+Este proyecto representa un backend completo, funcional y desplegable, diseñado para demostrar competencias reales en desarrollo backend moderno, diseño de APIs, analítica y despliegue de aplicaciones containerizadas.
