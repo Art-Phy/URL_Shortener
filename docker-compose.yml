@@ -1,0 +1,9 @@
+services:
+  api:
+    build: .
+    container_name: url-shortener-container
+    env_file:
+      - .docker.env
+    ports:
+      - "8002:8001"
+    restart: unless-stopped
