@@ -4,6 +4,27 @@ Todas las modificaciones relevantes del proyecto se documentan en este archivo s
 
 ---
 
+### [v0.4.0] Infraestructura integrada y acceso local
+
+#### Añadido
+
+- Integración completa de PostgreSQL dentro de Docker Compose.
+- Levantamiento conjunto de aplicación y base de datos mediante un único comando.
+- Configuración de hostname local para acceso al servicio mediante:
+  - `http://backend-lab.local:8002`
+- Acceso a documentación Swagger mediante:
+  - `http://backend-lab.local:8002/docs`
+
+####  Mejoras
+
+- Simplificación del proceso de despliegue y desarrollo.
+- Eliminación de dependencias externas para la base de datos.
+- Mayor portabilidad del entorno completo.
+- Arquitectura más cercana a un entorno productivo real.
+- Mejor experiencia de uso y pruebas locales.
+
+---
+
 ###  [v0.3.0] Dockerización y despliegue
 
 #### Añadido

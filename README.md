@@ -43,6 +43,9 @@ Este proyecto ha sido desarrollado como parte de un **portfolio backend**, con e
 - Integración con PostgreSQL.
 - Gestión de configuración mediante variables de entorno.
 - Preparado para despliegue en Raspberry Pi, VPS o servidores Linux.
+- Stack completo levantado mediante Docker Compose.
+- PostgreSQL integrado como servicio dentro del entorno containerizado.
+- Acceso mediante hostname local (`backend-lab.local`).
 
 ---
 
@@ -112,8 +115,8 @@ docker compose up --build
 
 4. Acceder a:
 
-- API: `http://localhost:8000`
-- Docs: `http://localhost:8000/docs`
+- API: `http://backend-lab.local:8002`
+- Docs: `http://backend-lab.local:8002/docs`
 
 
 ---
