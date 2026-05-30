@@ -1,9 +1,23 @@
 services:
   api:
     build: .
-    container_name: url-shortener-container
+    container_name: url-shortener-api
     env_file:
       - .docker.env
     ports:
       - "8002:8001"
+    depends_on:
+      - postgres
     restart: unless-stopped
+
+  postgres:
+    image: postgres:17
+    container_name: url-shortener-postgres
+    env_file:
+      - .docker.env
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
