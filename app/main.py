@@ -21,7 +21,7 @@ Base.metadata.create_all(bind=engine)
 app = FastAPI(
     title="URL Shortener API",
     description="Servicio para cortar URLs y obtener estadísticas.",
-    version="0.1.0"
+    version="0.4.0"
 )
 
 
