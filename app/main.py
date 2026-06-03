@@ -11,8 +11,6 @@ from .database import Base, engine, get_db
 from . import models, schemas
 from .utils import generate_short_code
 
-# Crear tablas automáticamente (sólo en desarrollo)
-Base.metadata.create_all(bind=engine)
 
 
 # -------------------------------------------------
@@ -21,7 +19,7 @@ Base.metadata.create_all(bind=engine)
 app = FastAPI(
     title="URL Shortener API",
     description="Servicio para cortar URLs y obtener estadísticas.",
-    version="0.1.0"
+    version="0.5.0"
 )
 
 
