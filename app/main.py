@@ -11,8 +11,6 @@ from .database import Base, engine, get_db
 from . import models, schemas
 from .utils import generate_short_code
 
-# Crear tablas automáticamente (sólo en desarrollo)
-Base.metadata.create_all(bind=engine)
 
 
 # -------------------------------------------------
