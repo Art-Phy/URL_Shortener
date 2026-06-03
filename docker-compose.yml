@@ -6,6 +6,8 @@ services:
       - .docker.env
     ports:
       - "8002:8001"
+    volumes:
+      - .:/app
     depends_on:
       postgres:
         condition: service_healthy
