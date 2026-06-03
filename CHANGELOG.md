@@ -4,6 +4,26 @@ Todas las modificaciones relevantes del proyecto se documentan en este archivo s
 
 ---
 
+### [v0.5.0] Migraciones profesionales y persistencia de datos
+
+#### Añadido
+
+- Integración completa de Alembic para gestión de migraciones.
+- Sistema de migraciones versionadas para controlar la evolución del esquema de base de datos.
+- Healthchecks en Docker Compose para verificar el estado de los servicios.
+- Volúmenes persistentes para PostgreSQL.
+- Primera migración inicial generada y aplicada mediante Alembic.
+
+#### Mejoras
+
+- Eliminación de la creación automática de tablas mediante `Base.metadata.create_all()`.
+- Gestión del esquema de base de datos mediante migraciones controladas.
+- Inicialización más robusta del entorno Docker.
+- Mayor alineación con prácticas utilizadas en entornos profesionales.
+- Mejor control sobre cambios futuros en la estructura de datos.
+
+---
+
 ### [v0.4.0] Infraestructura integrada y acceso local
 
 #### Añadido

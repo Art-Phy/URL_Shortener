@@ -44,8 +44,8 @@ Este proyecto ha sido desarrollado como parte de un **portfolio backend**, con e
 - Gestión de configuración mediante variables de entorno.
 - Preparado para despliegue en Raspberry Pi, VPS o servidores Linux.
 - Stack completo levantado mediante Docker Compose.
-- PostgreSQL integrado como servicio dentro del entorno containerizado.
 - Acceso mediante hostname local (`backend-lab.local`).
+- Healthchecks para supervisión del estado de los servicios.
 
 ---
 
@@ -79,6 +79,7 @@ La documentación interactiva está disponible en:
 #### Base de datos
 
 - PostgreSQL
+- Alembic (migraciones versionadas)
 
 #### Infraestructura
 
@@ -127,10 +128,13 @@ docker compose up --build
 - Validación de datos mediante Pydantic.
 - SQLAlchemy ORM.
 - PostgreSQL.
+- Alembic y migraciones versionadas.
 - Analytics y reporting.
 - Paginación de resultados.
 - Docker.
 - Docker Compose.
+- Persistencia mediante volúmenes Docker.
+- Healthchecks de servicios.
 - Gestión de variables de entorno.
 - Despliegue reproducible.
 - GitFlow.
@@ -143,7 +147,6 @@ docker compose up --build
 - Sistema de usuarios y autenticación JWT.
 - Exportación de estadísticas (CSV).
 - Dashboard web para visualización de métricas.
-- Migraciones mediante Alembic.
 - Integración de Redis para caché.
 - Monitorización y observabilidad.
 

@@ -19,7 +19,7 @@ from .utils import generate_short_code
 app = FastAPI(
     title="URL Shortener API",
     description="Servicio para cortar URLs y obtener estadísticas.",
-    version="0.4.0"
+    version="0.5.0"
 )
 
 
